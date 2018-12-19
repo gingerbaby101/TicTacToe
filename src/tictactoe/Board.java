@@ -19,6 +19,7 @@ public class Board {
     public void setSlot(int row, int col, int val)
     {
         slots[row][col] = val;
+        cellsLeft--;
     }
     public int getSlot(int row, int col)
     {
@@ -58,5 +59,25 @@ public class Board {
         }
         else 
             return ' ';
+    }
+    public String toString()
+    {
+        for(int i = 0; i < 3; i ++)
+        {
+            for(int p = 0; p < 3; p++)
+            {
+                if(p == 0 || p == 1)
+                {
+                    System.out.print(" " + slotChar(i, p) + " ");
+                    System.out.print("|");
+                }
+                else
+                    System.out.println(" " + slotChar(i, p) + " ");
+            }
+            if(i < 2)
+            {
+                System.out.println("-----------");
+            }
+        }  
     }
 }
