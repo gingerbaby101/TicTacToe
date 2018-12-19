@@ -170,7 +170,7 @@ public static int[][] realClone(int[][] k)
         //while(counter < 2)
         {
 //Prints the game
-        example.toString();
+        example.print();
         
         System.out.println("Row:");
         Scanner poop = new Scanner(System.in);
@@ -178,85 +178,67 @@ public static int[][] realClone(int[][] k)
         System.out.println("Collumn:");
         poop = new Scanner(System.in);
         int col = poop.nextInt() - 1;
-        example[row][col] = -1;
-        if (status(example) == 1){
+        example.copy(example.setSlot(row, col, -1));
+        if (example.status() == 1){
             System.out.println("One wins");
             break;
         }
-        if(status(example) == -1){
+        if(example.status() == -1){
             System.out.println("Negative one wins");
             break;
         }
         //System.out.println("cellsLeft of example: " + cellsLeft(example));
-        int[][] temp = realClone(example);
+        Board temp = new Board(example);
         //System.out.println("cellsLeft of temp: " + cellsLeft(temp));
         ArrayList<Integer> movesTrue = new ArrayList<>();
         ArrayList<Integer> movesFalse = new ArrayList<>();
         //boolean leaveLoop = false;
-        for(int r = 0; r < example.length; r++)
+        for(int r = 0; r < example.getRLength(); r++)
         {
-            for(int c = 0; c < example[0].length; c++)
+            for(int c = 0; c < example.getCLength(); c++)
             {
-                if(temp[r][c] == 0)
+                if(temp.getSlot(r, c) == 0)
                 {
-                    temp[r][c] = 1;
-                    //int[][] storage = temp.clone();
-                    //System.out.println("BEFORE miniMax " + cellsLeft(temp));
-                    int left = cellsLeft(temp);
+                    temp.copy(temp.setSlot(row, col, 1));
+                    int left = temp.getCells();
                     int valTrue = miniMax(temp, left, true);
                     int valFalse = miniMax(temp, left, false);
                     //System.out.println("AFTER miniMax " + cellsLeft(temp));                    
                     movesTrue.add(valTrue);
                     movesFalse.add(valFalse);
                     
-                    temp = realClone(example);
+                    temp = new Board(example);
                 }
             }
         }
         System.out.println("If maximizing player = true: " + movesTrue);
         System.out.println("If maximizing player = false: " + movesFalse);
         //int iBest = iOfBest(movesTrue);
-        for(int r = 0; r < example.length; r++)
+        for(int r = 0; r < example.getRLength(); r++)
         {
-            for(int c = 0; c < example[0].length; c++)
+            for(int c = 0; c < example.getCLength(); c++)
             {
                 //System.out.println(temp[r][c] == 0);
                 //System.out.println("best move at index: " + iOfBest(moves) + "  counter:" + counter);
                 
 //                if(temp[r][c] != 0 && iBest == counter)
                 
-                if(temp[r][c] == 0 && iOfBest(movesTrue) == counter)
+                if(temp.getSlot(r, c) == 0 && iOfBest(movesTrue) == counter)
                 {
-                    example[r][c] = 1;
+                    example.copy(example.setSlot(r, c, 1));
                     //System.out.println("Played at " + r + "  " + c);
                     counter = 1000;
                 }
-                if(temp[r][c] == 0)
+                if(temp.getSlot(r, c) == 0)
                     counter++;
             }
         }
         counter = 0;
-        if (status(example) == 1)
+        if (example.status() == 1)
             System.out.println("One wins");
-        if(status(example) == -1)
+        if(example.status() == -1)
             System.out.println("Negative one wins");
     }
-     for(int i = 0; i < 3; i ++)
-        {
-            for(int p = 0; p < 3; p++)
-            {
-                if(p == 0 || p == 1)
-                {
-                    System.out.print(" " + XO(example[i][p]) + " ");
-                    System.out.print("|");
-                }
-                else
-                    System.out.println(" " + XO(example[i][p]) + " ");
-            }
-            if(i < 2)
-            {
-                System.out.println("-----------");
-            }
-        }   
+     example.print();
     }
 }

@@ -10,11 +10,16 @@ package tictactoe;
  * @author ACER
  */
 public class Board {
-    private int[][] slots;
+    private int[][] slots = new int[3][3];
     private int cellsLeft;
     public Board()
     {
         cellsLeft = 9;
+    }
+    public Board(Board p)
+    {
+        Board j = new Board();
+        j = copy(p);
     }
     public Board setSlot(int row, int col, int val)
     {
@@ -94,7 +99,7 @@ public class Board {
         else 
             return ' ';
     }
-    public String toString()
+    public void print()
     {
         for(int i = 0; i < 3; i ++)
         {
