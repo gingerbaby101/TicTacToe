@@ -18,11 +18,23 @@ public class Board {
     }
     public Board setSlot(int row, int col, int val)
     {
-        slots[row][col] = val;
-        cellsLeft--;
         Board r = new Board();
+        r.slots[row][col] = val;
+        r.cellsLeft--;
         r = copy(this);
         return r;
+    }
+    public int getCells()
+    {
+        return cellsLeft;
+    }
+    public int getRLength()
+    {
+        return slots.length;
+    }
+    public int getCLength()
+    {
+        return slots[0].length;
     }
     public Board copy(Board old)
     {

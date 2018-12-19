@@ -91,33 +91,30 @@ public static int status(int[][] board)
      * @param maxPlayer
      * @return 
      */
-public static int miniMax(int[][] board, int depth, boolean maxPlayer)
+public static int miniMax(Board board, int depth, boolean maxPlayer)
 {
-    int[][] copy = realClone(board);
-    if(status(copy) == 1)
+    if(board.status() == 1)
     {
         return 1;
     }
-    if(status(copy) == -1)
+    if(board.status() == -1)
     {
         return -1;
     }
-    if(status(copy) == 0 && cellsLeft(copy) == 0)
+    if(board.status() == 0 && board.getCells() == 0)
     {
         return 0;
     }
     if(maxPlayer)
     {
         int value = -1;
-        for(int r = 0; r < copy.length; r++)
+        for(int r = 0; r < board.getRLength(); r++)
         {
-            for(int c = 0; c < copy[0].length; c++)
+            for(int c = 0; c < board.getCLength(); c++)
             {
-                if(copy[r][c] == 0)
+                if(board.getSlot(r, c) == 0)
                 {
-                    int[][] temp2 = realClone(copy);
-                    temp2[r][c] = 1;
-                    value = Math.max(value, miniMax(temp2, depth - 1, false ));
+                    value = Math.max(value, miniMax(board.setSlot(r, c, 1), depth - 1, false ));
                     return value;
                 }
             }
@@ -126,51 +123,19 @@ public static int miniMax(int[][] board, int depth, boolean maxPlayer)
     else
     {
         int value = 1;
-        for(int r = 0; r < copy.length; r++)
+        for(int r = 0; r < board.getRLength(); r++)
         {
-            for(int c = 0; c < copy[0].length; c++)
+            for(int c = 0; c < board.getCLength(); c++)
             {
-                if(copy[r][c] == 0)
+                if(board.getSlot(r, c) == 0)
                 {
-                    int[][] temp2 = realClone(copy);
-                    temp2[r][c] = -1;
-                    value = Math.max(value, miniMax(temp2, depth - 1, true ));
+                    value = Math.max(value, miniMax(board.setSlot(r, c, -1), depth - 1, true ));
                     return value;
                 }
             }
         }
     }
     return -666;
-}
-public static char XO(int u)
-{
-    if(u == -1)
-    {
-        return 'O';
-    }
-    if(u == 1)
-    {
-        return 'X';
-    }
-    else 
-        return ' ';
-}
-public static int cellsLeft(int[][] board)
-{
-    int total = 0;
-    for(int r = 0; r < board.length; r++)
-    {
-        for(int c = 0; c < board[0].length; c++)
-        {
-            if(board[r][c] == 0)
-            {
-                total++;
-                //System.out.println(total);
-            }
-        }
-    }
-    //System.out.println("cellsLeft:" + total);
-    return total;
 }
 public static int iOfBest(ArrayList<Integer> list)
 {
@@ -198,30 +163,14 @@ public static int[][] realClone(int[][] k)
 }
     public static void main(String[] args) 
     {
-        int[][] example = new int[3][3];
+        Board example = new Board();
         int counter = 0;
-        System.out.println("initial cellsLeft: " + cellsLeft(example));
-        while(cellsLeft(example) != 0)
+        //System.out.println("initial cellsLeft: " + cellsLeft(example));
+        while(example.getCells() != 0)
         //while(counter < 2)
         {
 //Prints the game
-        for(int i = 0; i < 3; i ++)
-        {
-            for(int p = 0; p < 3; p++)
-            {
-                if(p == 0 || p == 1)
-                {
-                    System.out.print(" " + XO(example[i][p]) + " ");
-                    System.out.print("|");
-                }
-                else
-                    System.out.println(" " + XO(example[i][p]) + " ");
-            }
-            if(i < 2)
-            {
-                System.out.println("-----------");
-            }
-        }
+        example.toString();
         
         System.out.println("Row:");
         Scanner poop = new Scanner(System.in);
