@@ -16,15 +16,37 @@ public class Board {
     {
         cellsLeft = 9;
     }
-    public void setSlot(int row, int col, int val)
+    public Board setSlot(int row, int col, int val)
     {
         slots[row][col] = val;
         cellsLeft--;
+        Board r = new Board();
+        r = copy(this);
+        return r;
+    }
+    public Board copy(Board old)
+    {
+        Board n = new Board();
+        n.slots = realClone(old.slots);
+        n.cellsLeft = old.cellsLeft;
+        return n;
     }
     public int getSlot(int row, int col)
     {
         return slots[row][col];
     }
+    public int[][] realClone(int[][] k)
+{
+    int[][] res = new int[k.length][k[0].length];
+    for(int r = 0; r < k.length; r++)
+    {
+        for(int c = 0; c < k[0].length; c++)
+        {
+            res[r][c] = k[r][c];
+        }
+    }
+    return res;
+}
     public int status()
     {
     if (slots[0][0] == slots[0][1] && slots[0][0] == slots[0][2] && slots[0][0] != 0)
