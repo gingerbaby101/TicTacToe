@@ -41,18 +41,6 @@ public class Board {
         return slots[0].length;
     }
 
-    public Board copy(Board old) {
-        Board n = new Board();
-        n.slots = realClone(old.slots);
-        n.cellsLeft = old.cellsLeft;
-        return n;
-    }
-
-    public void changeTo(Board board) {
-        slots = realClone(board.slots);
-        cellsLeft = board.cellsLeft;
-    }
-
     public int getSlot(int row, int col) {
         return slots[row][col];
     }
