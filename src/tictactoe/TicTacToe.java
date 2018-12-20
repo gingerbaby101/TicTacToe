@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tictactoe;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,17 +28,8 @@ public class TicTacToe {
             return board[0][0];
         if (board[0][2] == board[1][1] && board[0][2] == board[2][0] && board[0][2] != 0)
             return board[0][2];
-        /*for(int r = 0; r < 3; r++)
-          {
-          for(int c = 0; c < 3; c++)
-          {
-          if(board[r][c] == 0)
-          return 0;
-          }
-          }*/
         return 0;
     }
-
     /**
      * @param board
      * @param depth
@@ -70,12 +56,13 @@ public class TicTacToe {
                     }
                 }
             }
+
         } else {
             int value = 1;
             for(int r = 0; r < board.getRLength(); r++) {
                 for(int c = 0; c < board.getCLength(); c++) {
                     if(board.getSlot(r, c) == 0) {
-                        System.out.println("maxPlayer: " + maxPlayer + "        depth: " + depth);
+                        //System.out.println("maxPlayer: " + maxPlayer + "        depth: " + depth);
                         value = Math.min(value, miniMax(board.setSlot(r, c, -1), depth - 1, true ));
                         return value;
                     }
@@ -115,10 +102,6 @@ public class TicTacToe {
         //System.out.println("cellsLeft of currentBoard: " + cellsLeft(currentBoard));
         Board temp = new Board(currentBoard);
         System.out.println("after constructor: " + currentBoard.getCells());
-        //System.out.println("cellsLeft of temp: " + cellsLeft(temp));
-        ArrayList<Integer> movesTrue = new ArrayList<>();
-        ArrayList<Integer> movesFalse = new ArrayList<>();
-        //boolean leaveLoop = false;
 
         int maxValue = -666;
         Pair<Integer, Integer> best_coordinates = new Pair<Integer, Integer>();
@@ -145,7 +128,6 @@ public class TicTacToe {
     }
 
     private boolean checkEndOfGame() {
-
         if (currentBoard.status() == 1) {
             System.out.println("One wins");
             return true;

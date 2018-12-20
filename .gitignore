@@ -4,3 +4,4 @@ build/*
 
 # Ignore netbeans files
 nbproject/*
+/dist/
