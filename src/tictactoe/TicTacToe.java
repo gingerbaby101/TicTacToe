@@ -41,35 +41,31 @@ public class TicTacToe {
             return 1;
         } else if(board.status() == -1) {
             return -1;
-        } else if (board.status() == 0 && board.getCells() == 0){
+        } else if (board.status() == 0 && board.getCells() == 0) {
             return 0;
         }
 
+        int value;
         if(maxPlayer) {
-            int value = -1;
+            value = -2;
             for(int r = 0; r < board.getRLength(); r++) {
                 for(int c = 0; c < board.getCLength(); c++) {
                     if(board.getSlot(r, c) == 0) {
-                        System.out.println("maxPlayer: " + maxPlayer + "        depth: " + depth);
-                        value = Math.max(value, miniMax(board.setSlot(r, c, 1), depth - 1, false ));
-                        return value;
+                        value = Math.max(value, miniMax(board.setSlot(r, c, 1), depth - 1, false));
                     }
                 }
             }
-
         } else {
-            int value = 1;
+            value = 2;
             for(int r = 0; r < board.getRLength(); r++) {
                 for(int c = 0; c < board.getCLength(); c++) {
                     if(board.getSlot(r, c) == 0) {
-                        //System.out.println("maxPlayer: " + maxPlayer + "        depth: " + depth);
-                        value = Math.min(value, miniMax(board.setSlot(r, c, -1), depth - 1, true ));
-                        return value;
+                        value = Math.min(value, miniMax(board.setSlot(r, c, -1), depth - 1, true));
                     }
                 }
             }
         }
-        return -666;
+        return value;
     }
 
     private int iOfBest(ArrayList<Integer> list) {
@@ -99,22 +95,21 @@ public class TicTacToe {
     }
 
     private void getComputerTurn() {
-        //System.out.println("cellsLeft of currentBoard: " + cellsLeft(currentBoard));
-        Board temp = new Board(currentBoard);
-        System.out.println("after constructor: " + currentBoard.getCells());
-
         int maxValue = -666;
         Pair<Integer, Integer> best_coordinates = new Pair<Integer, Integer>();
         boolean valid_coordinates = false;
 
         for(int r = 0; r < currentBoard.getRLength(); r++) {
             for(int c = 0; c < currentBoard.getCLength(); c++) {
-                if(temp.getSlot(r, c) == 0) {
-                    int value = miniMax(currentBoard.setSlot(r, c, 1), currentBoard.getCells() - 1, true);
+                if(currentBoard.getSlot(r, c) == 0) {
+                    int value = miniMax(currentBoard.setSlot(r, c, 1), currentBoard.getCells() - 1, false);
+                    System.out.println("Move [" + r + ", " + c + "]: " + value);
                     if (value > maxValue) {
+                        System.out.println("Found new best [" + r + ", " + c + "]: " + value);
                         valid_coordinates = true;
                         best_coordinates.first = r;
                         best_coordinates.second = c;
+                        maxValue = value;
                     }
                 }
             }
