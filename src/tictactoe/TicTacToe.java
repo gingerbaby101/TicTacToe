@@ -96,7 +96,7 @@ public class TicTacToe {
         return maxIndex;
     }
 
-    public void getUserTurn() {
+    private void getUserTurn() {
         //Prints the game
         currentBoard.print();
 
@@ -111,7 +111,7 @@ public class TicTacToe {
         currentBoard = currentBoard.setSlot(row, col, -1);
     }
 
-    public void getComputerTurn() {
+    private void getComputerTurn() {
         //System.out.println("cellsLeft of currentBoard: " + cellsLeft(currentBoard));
         Board temp = new Board(currentBoard);
         System.out.println("after constructor: " + currentBoard.getCells());
@@ -144,7 +144,7 @@ public class TicTacToe {
         }
     }
 
-    public boolean checkEndOfGame() {
+    private boolean checkEndOfGame() {
 
         if (currentBoard.status() == 1) {
             System.out.println("One wins");
@@ -159,46 +159,16 @@ public class TicTacToe {
         return false;
     }
 
-
     public void play() {
         currentBoard = new Board();
         int counter = 0;
-        //System.out.println("initial cellsLeft: " + cellsLeft(currentBoard));
         boolean keepPlaying = true;
         while(keepPlaying) {
             getUserTurn();
             keepPlaying = !checkEndOfGame();
-            // System.out.println("after changeTo: " + currentBoard.getCells());
-
 
             getComputerTurn();
             keepPlaying = !checkEndOfGame();
-
-            // System.out.println("If maximizing player = true: " + movesTrue);
-            // System.out.println("If maximizing player = false: " + movesFalse);
-            // //int iBest = iOfBest(movesTrue);
-            // for(int r = 0; r < currentBoard.getRLength(); r++) {
-            //     for(int c = 0; c < currentBoard.getCLength(); c++) {
-            //         //System.out.println(temp[r][c] == 0);
-            //         //System.out.println("best move at index: " + iOfBest(moves) + "  counter:" + counter);
-
-            //         //                if(temp[r][c] != 0 && iBest == counter)
-
-            //         if(temp.getSlot(r, c) == 0 && iOfBest(movesTrue) == counter) {
-            //             currentBoard = currentBoard.setSlot(r, c, 1);
-            //             //System.out.println("Played at " + r + "  " + c);
-            //             counter = 1000;
-            //         }
-            //         if(temp.getSlot(r, c) == 0)
-            //             counter++;
-            //     }
-            // }
-
-            // counter = 0;
-            // if (currentBoard.status() == 1)
-            //     System.out.println("One wins");
-            // if(currentBoard.status() == -1)
-            //     System.out.println("Negative one wins");
         }
         currentBoard.print();
     }
