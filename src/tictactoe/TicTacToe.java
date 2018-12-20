@@ -103,9 +103,7 @@ public class TicTacToe {
             for(int c = 0; c < currentBoard.getCLength(); c++) {
                 if(currentBoard.getSlot(r, c) == 0) {
                     int value = miniMax(currentBoard.setSlot(r, c, 1), currentBoard.getCells() - 1, false);
-                    System.out.println("Move [" + r + ", " + c + "]: " + value);
                     if (value > maxValue) {
-                        System.out.println("Found new best [" + r + ", " + c + "]: " + value);
                         valid_coordinates = true;
                         best_coordinates.first = r;
                         best_coordinates.second = c;
