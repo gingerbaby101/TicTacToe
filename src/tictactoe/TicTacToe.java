@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tictactoe;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -212,17 +207,17 @@ public static int[][] realClone(int[][] k)
                     temp.changeTo(example.setSlot(row, col, 1));
                     int left = temp.getCells();
                        // System.out.println("cells left: " + temp.getCells());
-                    int valTrue = miniMax(temp, left, true);
-                    //int valFalse = miniMax(temp, left, false);
+                    //int valTrue = miniMax(temp, left, true);
+                    int valFalse = miniMax(temp, left, false);
                     //System.out.println("AFTER miniMax " + cellsLeft(temp));                    
-                    movesTrue.add(valTrue);
-                    //movesFalse.add(valFalse);
+                    //movesTrue.add(valTrue);
+                    movesFalse.add(valFalse);
                     
                     temp = new Board(example);
                 }
             }
         }
-        System.out.println("If maximizing player = true: " + movesTrue);
+        //System.out.println("If maximizing player = true: " + movesTrue);
         System.out.println("If maximizing player = false: " + movesFalse);
         //int iBest = iOfBest(movesTrue);
         for(int r = 0; r < example.getRLength(); r++)
@@ -234,7 +229,7 @@ public static int[][] realClone(int[][] k)
                 
 //                if(temp[r][c] != 0 && iBest == counter)
                 
-                if(temp.getSlot(r, c) == 0 && iOfBest(movesTrue) == counter)
+                if(temp.getSlot(r, c) == 0 && iOfBest(movesFalse) == counter)
                 {
                     example.changeTo(example.setSlot(r, c, 1));
                     //System.out.println("Played at " + r + "  " + c);
