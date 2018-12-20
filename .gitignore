@@ -1,0 +1,6 @@
+# Ignore build files
+build/*
+*.class
+
+# Ignore netbeans files
+nbproject/*
