@@ -23,7 +23,7 @@ public class Board {
     }
 
     public Board setSlot(int row, int col, int val) {
-        Board r = copy(this);
+        Board r = new Board(this);
         r.slots[row][col] = val;
         r.cellsLeft--;
         return r;
