@@ -95,14 +95,20 @@ public static int miniMax(Board board, int depth, boolean maxPlayer)
 {
     if(board.status() == 1)
     {
+        board.print();
+        System.out.println("returns 1 \n");
         return 1;
     }
     if(board.status() == -1)
     {
+        board.print();
+        System.out.println("returns -1 \n");
         return -1;
     }
-    if(board.status() == 0 && board.getCells() == 0)
+    if(board.status() == 0 && board.getCells() == -1)
     {
+        board.print();
+        System.out.println("returns 0 \n");
         return 0;
     }
     if(maxPlayer)
@@ -114,7 +120,7 @@ public static int miniMax(Board board, int depth, boolean maxPlayer)
             {
                 if(board.getSlot(r, c) == 0)
                 {
-                    System.out.println("maxPlayer: " + maxPlayer + "        depth: " + depth);
+                    //System.out.println("maxPlayer: " + maxPlayer + "        depth: " + depth);
                     value = Math.max(value, miniMax(board.setSlot(r, c, 1), depth - 1, false ));
                     return value;
                 }
@@ -130,8 +136,8 @@ public static int miniMax(Board board, int depth, boolean maxPlayer)
             {
                 if(board.getSlot(r, c) == 0)
                 {
-                    System.out.println("maxPlayer: " + maxPlayer + "        depth: " + depth);
-                    value = Math.max(value, miniMax(board.setSlot(r, c, -1), depth - 1, true ));
+                    //System.out.println("maxPlayer: " + maxPlayer + "        depth: " + depth);
+                    value = Math.min(value, miniMax(board.setSlot(r, c, -1), depth - 1, true ));
                     return value;
                 }
             }
@@ -181,7 +187,7 @@ public static int[][] realClone(int[][] k)
         poop = new Scanner(System.in);
         int col = poop.nextInt() - 1;
         example.changeTo(example.setSlot(row, col, -1));
-        System.out.println("after changeTo: " + example.getCells());
+        //System.out.println("after changeTo: " + example.getCells());
         if (example.status() == 1){
             System.out.println("One wins");
             break;
@@ -192,7 +198,7 @@ public static int[][] realClone(int[][] k)
         }
         //System.out.println("cellsLeft of example: " + cellsLeft(example));
         Board temp = new Board(example);
-        System.out.println("after constructor: " + example.getCells());        
+        //System.out.println("after constructor: " + example.getCells());        
         //System.out.println("cellsLeft of temp: " + cellsLeft(temp));
         ArrayList<Integer> movesTrue = new ArrayList<>();
         ArrayList<Integer> movesFalse = new ArrayList<>();
@@ -205,12 +211,12 @@ public static int[][] realClone(int[][] k)
                 {
                     temp.changeTo(example.setSlot(row, col, 1));
                     int left = temp.getCells();
-                        System.out.println("cells left: " + temp.getCells());
+                       // System.out.println("cells left: " + temp.getCells());
                     int valTrue = miniMax(temp, left, true);
-                    int valFalse = miniMax(temp, left, false);
+                    //int valFalse = miniMax(temp, left, false);
                     //System.out.println("AFTER miniMax " + cellsLeft(temp));                    
                     movesTrue.add(valTrue);
-                    movesFalse.add(valFalse);
+                    //movesFalse.add(valFalse);
                     
                     temp = new Board(example);
                 }
