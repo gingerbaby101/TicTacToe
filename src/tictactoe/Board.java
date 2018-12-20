@@ -24,9 +24,9 @@ public class Board {
     public Board setSlot(int row, int col, int val)
     {
         Board r = new Board();
+        r = copy(this);
         r.slots[row][col] = val;
         r.cellsLeft--;
-        r = copy(this);
         return r;
     }
     public int getCells()
@@ -47,6 +47,11 @@ public class Board {
         n.slots = realClone(old.slots);
         n.cellsLeft = old.cellsLeft;
         return n;
+    }
+    public void changeTo(Board board)
+    {
+        slots = realClone(board.slots);
+        cellsLeft = board.cellsLeft;
     }
     public int getSlot(int row, int col)
     {

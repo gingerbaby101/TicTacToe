@@ -178,7 +178,7 @@ public static int[][] realClone(int[][] k)
         System.out.println("Collumn:");
         poop = new Scanner(System.in);
         int col = poop.nextInt() - 1;
-        example.copy(example.setSlot(row, col, -1));
+        example.changeTo(example.setSlot(row, col, -1));
         if (example.status() == 1){
             System.out.println("One wins");
             break;
@@ -199,7 +199,7 @@ public static int[][] realClone(int[][] k)
             {
                 if(temp.getSlot(r, c) == 0)
                 {
-                    temp.copy(temp.setSlot(row, col, 1));
+                    temp.changeTo(temp.setSlot(row, col, 1));
                     int left = temp.getCells();
                     int valTrue = miniMax(temp, left, true);
                     int valFalse = miniMax(temp, left, false);
@@ -225,7 +225,7 @@ public static int[][] realClone(int[][] k)
                 
                 if(temp.getSlot(r, c) == 0 && iOfBest(movesTrue) == counter)
                 {
-                    example.copy(example.setSlot(r, c, 1));
+                    example.changeTo(example.setSlot(r, c, 1));
                     //System.out.println("Played at " + r + "  " + c);
                     counter = 1000;
                 }
